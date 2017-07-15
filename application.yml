@@ -1,0 +1,32 @@
+diversion:
+  global:
+    history_start_date: 2016-01-01
+    selenium:
+      driver_path: ******/python/diversion/driver/phantomjs-2.1.1-macosx/bin/phantomjs
+  umeng:
+    user_name: *****
+    password: *******
+    # session  effective time ,will get session again if over this time
+    session_timeout: 300
+    url:
+      login: https://i.umeng.com/login
+      user_overview: http://mobile.umeng.com/apps/get_summary_data
+      application_user_overview: http://mobile.umeng.com/apps/get_apps_stats_details?page=1&per_page=30&type=all-apps-list&show_all=false&sort_metric=&order=
+      application_overall_trend: http://mobile.umeng.com/apps/{app_id}/reports/load_table_data?stats=dashboard_trend
+      retention_rate_day: http://mobile.umeng.com/apps/{app_id}/reports/load_table_data?page=1&per_page=1000&start_date={start_date}&end_date={end_date}&versions%5B%5D=&channels%5B%5D={channel_id}&segments%5B%5D=&time_unit=daily&stats=retentions
+      user_analysis: http://mobile.umeng.com/apps/{app_id}/reports/load_chart_data?start_date={start_date}&end_date={end_date}&versions%5B%5D=&channels%5B%5D={channel_id}&segments%5B%5D=&time_unit={time_unit}&stats={stats}
+      overall_trend: http://mobile.umeng.com/apps/{app_id}/reports/load_chart_data?start_date={start_date}&end_date={end_date}&stats={stats}
+      user_analysis_launch_hourly: http://mobile.umeng.com/apps/{app_id}/reports/load_table_data?page=1&per_page=1000000&start_date={start_date}&end_date={end_date}&versions%5B%5D=&channels%5B%5D=&segments%5B%5D=&time_unit=hourly&stats=launches
+      channels: http://mobile.umeng.com/apps/{app_id}/load_channels
+  data_source:
+    url: mysql+mysqlconnector://root:root@123@127.0.0.1:3306/data_platform?charset=utf8
+    #连接数大小，默认为5，正式环境该数值太小，需根据实际情况调大
+    pool_size: 20
+    #默认为-1, 推荐设置为7200, 即如果connection空闲了7200秒, 自动重新获取, 以防止connection被db server关闭.
+    pool_recycle: 7200
+    #超出pool_size后可允许的最大连接数，默认为10, 这10个连接在使用过后, 不放在pool中, 而是被真正关闭的.
+    max_overflow: 30
+    #获取连接的超时阈值, 默认为30秒
+    pool_timeout: 300
+    # 调试使用，是否显示执行的sql语句，正式环境需要调整为False
+    echo: False
